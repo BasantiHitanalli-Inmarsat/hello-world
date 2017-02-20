@@ -12,6 +12,7 @@ public class DroolsTest {
     public static final void main(String[] args) {
         try {
            //Making the changes for GIT learning
+        	//This is new commit
         	// load up the knowledge base
 	        KieServices ks = KieServices.Factory.get();
     	    KieContainer kContainer = ks.getKieClasspathContainer();
