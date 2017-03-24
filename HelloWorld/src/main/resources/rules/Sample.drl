@@ -1,6 +1,7 @@
 package com.sample
  
 import com.sample.DroolsTest.Message;
+import java.util.ArrayList;
  
 rule "Hello World"
     when
@@ -16,5 +17,28 @@ rule "GoodBye"
     when
         Message( status == Message.GOODBYE, myMessage : message )
     then
-        System.out.println( myMessage );
+        System.out.println( myMessage + " rulename : " + drools.getRule().getName());
 end
+
+global java.util.List results;
+
+rule "Collect Hello Objects"
+// when there is one or more cheeses of type stilton
+// then add them to the list
+when
+  messageList : ArrayList(size > 0)
+                 from collect( Message( message == "Hello" ) );
+then
+  results.add(messageList);
+  System.out.println(  " rulename : " + drools.getRule().getName());
+   System.out.println( "results:  " + results );
+end
+
+rule "weekdays are high priority"
+   calendars "weekday"
+   timer (int:0 1h)
+when
+    Alarm()
+then
+    send( "priority high - we have an alarm" );
+    end
